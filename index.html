@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Σ - SigmaMath | Portal de Gestión Matemática</title>
+  <!-- Google Fonts: Inter para UI limpia y Lora para tipografía matemática elegante -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+  <!-- Supabase CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- Cuadrícula matemática de fondo (decoración sutil) -->
+  <div class="math-grid-bg"></div>
+  
+  <!-- Efectos de Luces de Neón Flotantes (Efecto Sci-Fi de Matemáticas) -->
+  <div class="glow-orb orb-primary"></div>
+  <div class="glow-orb orb-secondary"></div>
+  <div class="glow-orb orb-tertiary"></div>
+
+  <!-- Contenedor Principal de la App -->
+  <div id="app" class="app-container">
+    
+    <!-- HEADER GENERAL -->
+    <header class="main-header">
+      <div class="logo">
+        <span class="logo-symbol">Σ</span>
+        <div class="logo-text">
+          <h1>SigmaMath</h1>
+          <span class="logo-subtitle">Portal de Aprendizaje</span>
+        </div>
+      </div>
+      <div id="user-session-info" class="user-session-info hidden">
+        <span id="session-user-name">Usuario</span>
+        <span id="session-user-role" class="badge">Rol</span>
+        <button id="logout-btn" class="btn btn-secondary btn-sm">Cerrar Sesión</button>
+      </div>
+    </header>
+
+    <main class="main-content">
+      
+      <!-- ================= VISTA DE LOGIN ================= -->
+      <section id="login-view" class="view-section">
+        <div class="login-card card">
+          <div class="login-header">
+            <div class="math-decoration">
+              <svg viewBox="0 0 100 50" class="math-chart">
+                <path d="M10,40 Q30,10 50,30 T90,10" fill="none" stroke="url(#cyan-purple-grad)" stroke-width="3" stroke-linecap="round" />
+                <defs>
+                  <linearGradient id="cyan-purple-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="var(--primary)" />
+                    <stop offset="100%" stop-color="var(--secondary)" />
+                  </linearGradient>
+                </defs>
+                <circle cx="10" cy="40" r="4" fill="var(--primary)" />
+                <circle cx="90" cy="10" r="4" fill="var(--secondary)" />
+              </svg>
+            </div>
+            <h2>Bienvenido a SigmaMath</h2>
+            <p>Ingresa tus credenciales para acceder a tus clases y pagos</p>
+          </div>
+          
+          <form id="login-form">
+            <div class="form-group">
+              <label for="username">Usuario o Correo</label>
+              <input type="text" id="username" placeholder="ej. Diana_Matson o alumno1" required autocomplete="username">
+            </div>
+            <div class="form-group">
+              <label for="password">Contraseña</label>
+              <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+            </div>
+            <div id="login-error" class="error-message hidden">Usuario o contraseña incorrectos.</div>
+            <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
+          </form>
+
+          <!-- Sección de Contacto de Profesora (WhatsApp / Gmail - Estilo Iconos Neón) -->
+          <div class="teacher-contact">
+            <span>¿Tienes dudas? Contacta a la profesora:</span>
+            <div class="contact-links">
+              <a href="https://wa.me/584149980835" target="_blank" class="contact-icon-btn whatsapp" title="Chatear por WhatsApp">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M12.012 2c-5.506 0-9.989 4.478-9.99 9.984a9.96 9.96 0 0 0 1.333 4.975L2 22l5.233-1.371a9.936 9.936 0 0 0 4.779 1.218h.004c5.505 0 9.988-4.478 9.989-9.984 0-2.669-1.037-5.176-2.922-7.062A9.925 9.925 0 0 0 12.012 2zm5.72 14.12c-.244.688-1.22 1.261-1.78 1.332-.524.066-1.206.1-3.517-.86-2.955-1.228-4.858-4.225-5.005-4.422-.147-.197-1.196-1.59-1.196-3.033 0-1.443.754-2.152 1.025-2.441.27-.29.59-.362.788-.362.197 0 .394.002.566.01.18.008.423-.069.664.512.246.592.838 2.04.912 2.188.074.148.123.32.025.518-.098.197-.148.32-.296.492-.148.173-.312.386-.445.518-.148.148-.303.31-.13.606.172.296.764 1.258 1.637 2.036.873.778 1.611 1.018 1.939 1.15.328.13.517.109.713-.118.197-.227.838-.975 1.06-1.307.22-.33.443-.275.74-.167.295.109 1.874.879 2.194 1.039.32.16.534.238.612.373.08.135.08.78-.165 1.468z"/>
+                </svg>
+              </a>
+              <a href="mailto:dianamatson1@gmail.com" class="contact-icon-btn gmail" title="Enviar correo">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div class="demo-logins">
+            <h4>Acceso Rápido de Prueba (Demo)</h4>
+            <div class="demo-buttons">
+              <button id="demo-teacher-btn" class="btn btn-outline btn-sm">Entrar como Prof. Diana</button>
+              <button id="demo-student-btn" class="btn btn-outline btn-sm">Entrar como Alumno 1</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= VISTA DEL ALUMNO (STUDENT) ================= -->
+      <section id="student-view" class="view-section hidden">
+        <div class="dashboard-grid">
+          
+          <!-- Lado Izquierdo: Calificaciones, Asistencia y Registro de Pago -->
+          <div class="dashboard-sidebar">
+            <!-- Calificaciones / Notas -->
+            <div class="card panel-grades">
+              <div class="card-header">
+                <h3>📊 Mis Calificaciones</h3>
+              </div>
+              <div class="card-body">
+                <div id="grades-list-container" class="grades-list">
+                  <!-- Inyectado dinámicamente -->
+                  <p class="empty-state">No tienes calificaciones registradas aún.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Asistencia del Estudiante -->
+            <div class="card panel-attendance">
+              <div class="card-header flex-header">
+                <h3>📅 Mi Asistencia</h3>
+                <span id="student-attendance-rate" class="badge badge-success">0%</span>
+              </div>
+              <div class="card-body">
+                <div class="attendance-summary">
+                  <p id="student-attendance-text" style="font-size: 0.85rem; font-weight: 500;">Cargando registro...</p>
+                </div>
+                <div id="student-attendance-log" class="attendance-log-list">
+                  <!-- Inyectado dinámicamente -->
+                </div>
+              </div>
+            </div>
+
+            <!-- Carga de Pago -->
+            <div class="card panel-upload">
+              <div class="card-header">
+                <h3>💸 Registrar Pago</h3>
+              </div>
+              <div class="card-body">
+                <form id="payment-form">
+                  <div class="form-group">
+                    <label for="payment-type">Tipo de Clase</label>
+                    <select id="payment-type" required>
+                      <option value="Mensual">Clases Mensuales</option>
+                      <option value="Diario">Clase Diaria / Particular</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="payment-amount">Monto ($)</label>
+                    <input type="number" id="payment-amount" placeholder="Monto cancelado" required min="1">
+                  </div>
+                  <div class="form-group">
+                    <label for="payment-receipt">Soporte de Pago (Imagen)</label>
+                    <div class="file-dropzone" id="dropzone">
+                      <input type="file" id="payment-receipt" accept="image/*" required>
+                      <div class="dropzone-text">
+                        <span class="upload-icon">📷</span>
+                        <p>Haz clic o arrastra tu captura de pago aquí</p>
+                        <span class="file-hint">Formatos soportados: JPG, PNG</span>
+                      </div>
+                      <div class="preview-container hidden" id="receipt-preview-container">
+                        <img id="receipt-preview-img" src="" alt="Vista previa">
+                        <button type="button" id="remove-receipt-btn" class="btn btn-danger btn-sm">Quitar</button>
+                      </div>
+                    </div>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block">Subir Soporte</button>
+                </form>
+              </div>
+            </div>
+          </div>
+
+          <!-- Lado Derecho: Historial de Pagos -->
+          <div class="dashboard-main">
+            <div class="card panel-history">
+              <div class="card-header">
+                <h3>📋 Historial de Pagos</h3>
+              </div>
+              <div class="card-body">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Fecha</th>
+                        <th>Tipo</th>
+                        <th>Monto</th>
+                        <th>Soporte</th>
+                        <th>Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody id="student-payments-tbody">
+                      <!-- Inyectado dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ================= VISTA DE LA PROFESORA (TEACHER / ADMIN) ================= -->
+      <section id="teacher-view" class="view-section hidden">
+        <!-- Pestañas de Navegación del Panel de Profesora -->
+        <div class="tab-navigation">
+          <button class="tab-btn active" data-tab="tab-payments">
+            <span class="tab-icon">📥</span> Verificar Pagos 
+            <span id="pending-count-badge" class="badge badge-warning hidden">0</span>
+          </button>
+          <button class="tab-btn" data-tab="tab-students">
+            <span class="tab-icon">🎓</span> Registrar Alumnos & Notas
+          </button>
+          <button class="tab-btn" data-tab="tab-attendance">
+            <span class="tab-icon">📅</span> Asistencia
+          </button>
+          <button class="tab-btn" data-tab="tab-income">
+            <span class="tab-icon">💳</span> Ingresos
+          </button>
+        </div>
+
+        <!-- Pestaña 1: Verificar Pagos -->
+        <div id="tab-payments" class="tab-content">
+          <div class="card">
+            <div class="card-header flex-header">
+              <h3>Pagos Recibidos</h3>
+              <div class="filter-controls" style="display: flex; gap: 0.75rem; align-items: center; flex-wrap: wrap;">
+                <input type="text" id="teacher-payment-search" placeholder="🔍 Buscar por alumno..." style="width: 180px; padding: 0.45rem 0.8rem; font-size: 0.8rem; height: 32px; border-radius: 6px; margin: 0; background-color: rgba(6, 9, 19, 0.45); border: 1px solid var(--border-color); color: white;">
+                <button class="btn btn-outline btn-sm filter-btn active" data-filter="todos">Todos</button>
+                <button class="btn btn-outline btn-sm filter-btn" data-filter="pendiente">Pendientes</button>
+                <button class="btn btn-outline btn-sm filter-btn" data-filter="verificado">Verificados</button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Alumno</th>
+                      <th>Fecha</th>
+                      <th>Tipo</th>
+                      <th>Monto</th>
+                      <th>Soporte</th>
+                      <th>Estado</th>
+                      <th>Acción</th>
+                    </tr>
+                  </thead>
+                  <tbody id="teacher-payments-tbody">
+                    <!-- Inyectado dinámicamente -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 2: Gestión de Alumnos y Notas -->
+        <div id="tab-students" class="tab-content hidden">
+          <div class="teacher-grid">
+            <!-- Formulario de Registro de Alumno -->
+            <div class="card">
+              <div class="card-header">
+                <h3>🆕 Registrar Nuevo Alumno</h3>
+              </div>
+              <div class="card-body">
+                <form id="new-student-form">
+                  <div class="form-group">
+                    <label for="new-student-name">Nombre Completo</label>
+                    <input type="text" id="new-student-name" placeholder="ej. Carlos Pérez" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="new-student-user">Usuario de Acceso</label>
+                    <input type="text" id="new-student-user" placeholder="ej. carlosp" required autocomplete="username">
+                  </div>
+                  <div class="form-group">
+                    <label for="new-student-pass">Contraseña</label>
+                    <input type="password" id="new-student-pass" placeholder="••••••••" required autocomplete="new-password">
+                  </div>
+                  <button type="submit" class="btn btn-success btn-block">Agregar Estudiante</button>
+                </form>
+              </div>
+            </div>
+
+            <!-- Lista de Alumnos para Agregar Calificaciones -->
+            <div class="card">
+              <div class="card-header">
+                <h3>📝 Registro de Notas por Alumno</h3>
+              </div>
+              <div class="card-body">
+                <div class="student-list" id="students-list-grade-panel">
+                  <!-- Inyectado dinámicamente -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 3: Asistencia -->
+        <div id="tab-attendance" class="tab-content hidden">
+          <div class="card">
+            <div class="card-header flex-header">
+              <h3>Control de Asistencia Diario</h3>
+              <div class="attendance-date-control">
+                <label for="attendance-date">Fecha de la Clase:</label>
+                <input type="date" id="attendance-date" required>
+              </div>
+            </div>
+            <div class="card-body">
+              <form id="attendance-form">
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Alumno</th>
+                        <th>Usuario</th>
+                        <th style="text-align: center; width: 300px;">Estado</th>
+                      </tr>
+                    </thead>
+                    <tbody id="attendance-students-tbody">
+                      <!-- Inyectado dinámicamente -->
+                    </tbody>
+                  </table>
+                </div>
+                <div class="attendance-actions" style="margin-top: 1.5rem; display: flex; justify-content: flex-end;">
+                  <button type="submit" class="btn btn-primary">💾 Guardar Asistencia</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+
+        <!-- Pestaña 4: Ingresos (Dashboard Financiero) -->
+        <div id="tab-income" class="tab-content hidden">
+          <!-- Tarjetas de Métricas -->
+          <div class="stats-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 2rem;">
+            
+            <!-- Total Recaudado -->
+            <div class="card stat-card" style="border-left: 4px solid var(--success); background: linear-gradient(135deg, rgba(16, 185, 129, 0.03) 0%, rgba(15, 23, 42, 0.55) 100%);">
+              <div class="card-body" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em;">Total Recaudado (Listo)</span>
+                <strong id="stat-total-income" style="font-family: var(--font-math); font-size: 2.25rem; font-weight: 700; color: #34d399; text-shadow: 0 0 15px rgba(16, 185, 129, 0.25); margin: 0.25rem 0;">$0.00</strong>
+                <span id="stat-total-count" style="font-size: 0.75rem; color: var(--text-muted);">0 transacciones verificadas</span>
+              </div>
+            </div>
+
+            <!-- Pendiente por Cobrar -->
+            <div class="card stat-card" style="border-left: 4px solid var(--warning); background: linear-gradient(135deg, rgba(245, 158, 11, 0.03) 0%, rgba(15, 23, 42, 0.55) 100%);">
+              <div class="card-body" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em;">Pendiente por Cobrar</span>
+                <strong id="stat-pending-income" style="font-family: var(--font-math); font-size: 2.25rem; font-weight: 700; color: var(--warning); text-shadow: 0 0 15px var(--warning-glow); margin: 0.25rem 0;">$0.00</strong>
+                <span id="stat-pending-count" style="font-size: 0.75rem; color: var(--text-muted);">0 transacciones pendientes</span>
+              </div>
+            </div>
+
+            <!-- Desglose Mensuales -->
+            <div class="card stat-card" style="border-left: 4px solid var(--primary); background: linear-gradient(135deg, rgba(6, 182, 212, 0.03) 0%, rgba(15, 23, 42, 0.55) 100%);">
+              <div class="card-body" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em;">Clases Mensuales</span>
+                <strong id="stat-monthly-income" style="font-family: var(--font-math); font-size: 2.25rem; font-weight: 700; color: var(--primary); text-shadow: 0 0 15px var(--primary-glow); margin: 0.25rem 0;">$0.00</strong>
+                <span id="stat-monthly-percent" style="font-size: 0.75rem; color: var(--text-muted);">0% del total</span>
+              </div>
+            </div>
+
+            <!-- Desglose Diario -->
+            <div class="card stat-card" style="border-left: 4px solid var(--secondary); background: linear-gradient(135deg, rgba(139, 92, 246, 0.03) 0%, rgba(15, 23, 42, 0.55) 100%);">
+              <div class="card-body" style="padding: 1.5rem; display: flex; flex-direction: column; justify-content: center;">
+                <span style="font-size: 0.75rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em;">Clases Diarias</span>
+                <strong id="stat-daily-income" style="font-family: var(--font-math); font-size: 2.25rem; font-weight: 700; color: #a78bfa; text-shadow: 0 0 15px var(--secondary-glow); margin: 0.25rem 0;">$0.00</strong>
+                <span id="stat-daily-percent" style="font-size: 0.75rem; color: var(--text-muted);">0% del total</span>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Zona de Gráficos (Histórico Temporal & Donut de Distribución) -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; margin-bottom: 2rem; align-items: start;" class="income-visual-grid">
+            
+            <!-- Gráfico de Curva Temporal -->
+            <div class="card">
+              <div class="card-header">
+                <h3>📈 Curva Temporal de Ingresos</h3>
+              </div>
+              <div class="card-body" style="padding: 1.5rem; text-align: center;">
+                <div id="income-chart-wrapper" style="position: relative; width: 100%; height: 260px;">
+                  <svg id="income-svg-chart" viewBox="0 0 600 240" style="width: 100%; height: 100%; overflow: visible;">
+                    <defs>
+                      <linearGradient id="chart-glow" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="var(--primary)" stop-opacity="0.35"/>
+                        <stop offset="100%" stop-color="var(--primary)" stop-opacity="0.0"/>
+                      </linearGradient>
+                      <linearGradient id="stroke-grad" x1="0" y1="0" x2="1" y2="0">
+                        <stop offset="0%" stop-color="var(--primary)"/>
+                        <stop offset="100%" stop-color="var(--secondary)"/>
+                      </linearGradient>
+                    </defs>
+                    <!-- Líneas de referencia horizontales -->
+                    <line x1="50" y1="40" x2="570" y2="40" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4"/>
+                    <line x1="50" y1="90" x2="570" y2="90" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4"/>
+                    <line x1="50" y1="140" x2="570" y2="140" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4"/>
+                    <line x1="50" y1="190" x2="570" y2="190" stroke="rgba(255,255,255,0.05)" stroke-dasharray="4"/>
+                    
+                    <!-- Ejes -->
+                    <line x1="50" y1="20" x2="50" y2="200" stroke="rgba(255,255,255,0.1)"/>
+                    <line x1="50" y1="200" x2="570" y2="200" stroke="rgba(255,255,255,0.1)"/>
+                    
+                    <!-- Área y Trazado -->
+                    <path id="chart-area-path" d="" fill="url(#chart-glow)"/>
+                    <path id="chart-line-path" d="" fill="none" stroke="url(#stroke-grad)" stroke-width="4" stroke-linecap="round"/>
+                    
+                    <!-- Puntos e Indicadores de Valores -->
+                    <g id="chart-dots-group"></g>
+                    <!-- Etiquetas Y y X -->
+                    <g id="chart-labels-y" style="font-size: 10px; fill: var(--text-muted); font-weight: 500;"></g>
+                    <g id="chart-labels-x" style="font-size: 10px; fill: var(--text-muted); font-weight: 500; text-anchor: middle;"></g>
+                  </svg>
+                </div>
+              </div>
+            </div>
+
+            <!-- Gráfico de Donut -->
+            <div class="card">
+              <div class="card-header">
+                <h3>🍩 Distribución de Tipo</h3>
+              </div>
+              <div class="card-body" style="padding: 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 260px;">
+                <div style="position: relative; width: 140px; height: 140px;">
+                  <svg viewBox="0 0 36 36" style="width: 140px; height: 140px; transform: rotate(-90deg);">
+                    <circle cx="18" cy="18" r="15.915" fill="none" stroke="rgba(255,255,255,0.04)" stroke-width="3"/>
+                    <circle id="donut-segment-monthly" cx="18" cy="18" r="15.915" fill="none" stroke="var(--primary)" stroke-width="3.2" stroke-dasharray="0 100" stroke-dashoffset="0" stroke-linecap="round" style="transition: stroke-dasharray 0.5s ease;"/>
+                    <circle id="donut-segment-daily" cx="18" cy="18" r="15.915" fill="none" stroke="var(--secondary)" stroke-width="3.2" stroke-dasharray="0 100" stroke-dashoffset="0" stroke-linecap="round" style="transition: stroke-dasharray 0.5s ease;"/>
+                  </svg>
+                  <div style="position: absolute; top: 52%; left: 50%; transform: translate(-50%, -50%); text-align: center; width: 100%;">
+                    <span id="donut-center-percent" style="font-family: var(--font-math); font-size: 1.45rem; font-weight: 700; color: white;">0%</span>
+                    <br>
+                    <span style="font-size: 0.65rem; text-transform: uppercase; color: var(--text-muted); font-weight: 700; letter-spacing: 0.05em;">Mensual</span>
+                  </div>
+                </div>
+                <!-- Leyenda de Datos -->
+                <div style="width: 100%; margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.85rem;">
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="display: inline-flex; align-items: center; gap: 0.5rem;"><span style="width: 10px; height: 10px; border-radius: 50%; background-color: var(--primary);"></span> Clases Mensuales</span>
+                    <strong id="legend-monthly-val" style="color: white;">$0.00</strong>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span style="display: inline-flex; align-items: center; gap: 0.5rem;"><span style="width: 10px; height: 10px; border-radius: 50%; background-color: var(--secondary);"></span> Clases Diarias</span>
+                    <strong id="legend-daily-val" style="color: white;">$0.00</strong>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODAL DE VISUALIZACIÓN DE SOPORTE DE PAGO -->
+  <div id="receipt-modal" class="modal hidden">
+    <div class="modal-backdrop" id="modal-backdrop"></div>
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3>Soporte de Pago</h3>
+        <button id="close-modal-btn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <img id="modal-receipt-img" src="" alt="Comprobante de pago a tamaño completo">
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL PARA REGISTRAR NOTAS -->
+  <div id="grade-modal" class="modal hidden">
+    <div class="modal-backdrop" id="grade-modal-backdrop"></div>
+    <div class="modal-content modal-content-sm">
+      <div class="modal-header">
+        <h3>Asignar Nota de Examen</h3>
+        <button id="close-grade-modal-btn" class="modal-close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <form id="grade-form">
+          <input type="hidden" id="grade-student-username">
+          <div class="student-target-info">
+            Calificando a: <strong id="grade-student-display-name">Alumno</strong>
+          </div>
+          <div class="form-group">
+            <label for="grade-exam-name">Nombre del Examen / Tarea</label>
+            <input type="text" id="grade-exam-name" placeholder="ej. Primer Parcial: Álgebra" required>
+          </div>
+          <div class="form-group">
+            <label for="grade-score">Calificación (ej. 17/20 o sobre 100)</label>
+            <input type="text" id="grade-score" placeholder="ej. 17 o 85%" required>
+          </div>
+          <div class="form-group">
+            <label for="grade-date">Fecha del Examen</label>
+            <input type="date" id="grade-date" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Guardar Nota</button>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
