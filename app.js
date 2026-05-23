@@ -226,10 +226,6 @@ const dom = {
   sessionUserRole: document.getElementById('session-user-role'),
   logoutBtn: document.getElementById('logout-btn'),
   
-  // Demos
-  demoTeacherBtn: document.getElementById('demo-teacher-btn'),
-  demoStudentBtn: document.getElementById('demo-student-btn'),
-  
   // Estudiante
   paymentForm: document.getElementById('payment-form'),
   paymentType: document.getElementById('payment-type'),
@@ -824,20 +820,7 @@ function closeGradeModal() {
 dom.closeGradeModalBtn.addEventListener('click', closeGradeModal);
 dom.gradeModalBackdrop.addEventListener('click', closeGradeModal);
 
-// ==========================================
-// LOGIN POR DEMO & UTILIDADES
-// ==========================================
-dom.demoTeacherBtn.addEventListener('click', () => {
-  dom.usernameInput.value = 'Diana_Matson';
-  dom.passwordInput.value = '2525Matson';
-  dom.loginForm.dispatchEvent(new Event('submit'));
-});
 
-dom.demoStudentBtn.addEventListener('click', () => {
-  dom.usernameInput.value = 'alumno1';
-  dom.passwordInput.value = 'pass123';
-  dom.loginForm.dispatchEvent(new Event('submit'));
-});
 
 dom.loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
