@@ -471,15 +471,15 @@ async function renderStudentDashboard() {
       
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td>${formatDate(p.date)}</td>
-        <td>${p.type}</td>
-        <td>$${p.amount}</td>
-        <td>
+        <td data-label="Fecha">${formatDate(p.date)}</td>
+        <td data-label="Tipo">${p.type}</td>
+        <td data-label="Monto">$${p.amount}</td>
+        <td data-label="Soporte">
           <button class="receipt-thumbnail-btn" data-receipt="${p.id}">
             <img src="${p.receipt}" class="receipt-thumbnail" alt="Soporte">
           </button>
         </td>
-        <td>${statusBadge}</td>
+        <td data-label="Estado">${statusBadge}</td>
       `;
       dom.studentPaymentsTbody.appendChild(tr);
     });
@@ -612,17 +612,17 @@ async function renderTeacherDashboard() {
 
       const tr = document.createElement('tr');
       tr.innerHTML = `
-        <td><strong>${p.studentName}</strong> <br><small style="color: var(--text-muted)">@${p.studentUsername}</small></td>
-        <td>${formatDate(p.date)}</td>
-        <td>${p.type}</td>
-        <td>$${p.amount}</td>
-        <td>
+        <td data-label="Alumno"><strong>${p.studentName}</strong> <br><small style="color: var(--text-muted)">@${p.studentUsername}</small></td>
+        <td data-label="Fecha">${formatDate(p.date)}</td>
+        <td data-label="Tipo">${p.type}</td>
+        <td data-label="Monto">$${p.amount}</td>
+        <td data-label="Soporte">
           <button class="receipt-thumbnail-btn" data-receipt="${p.id}">
             <img src="${p.receipt}" class="receipt-thumbnail" alt="Soporte">
           </button>
         </td>
-        <td>${statusBadge}</td>
-        <td>${actionButton}</td>
+        <td data-label="Estado">${statusBadge}</td>
+        <td data-label="Acción">${actionButton}</td>
       `;
       dom.teacherPaymentsTbody.appendChild(tr);
     });
@@ -869,9 +869,9 @@ async function renderAttendanceSheet() {
     
     const tr = document.createElement('tr');
     tr.innerHTML = `
-      <td><strong>${student.name}</strong></td>
-      <td>@${student.username}</td>
-      <td>
+      <td data-label="Alumno"><strong>${student.name}</strong></td>
+      <td data-label="Usuario">@${student.username}</td>
+      <td data-label="Estado">
         <div class="attendance-options">
           <label class="attendance-radio-label opt-present">
             <input type="radio" name="att-${student.username}" value="Presente" ${isPresent ? 'checked' : ''}>
